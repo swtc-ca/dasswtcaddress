@@ -2,7 +2,8 @@
   "android": {
     "v8Flags": "--expose_gc"
   },
+  "discardUncaughtJsExceptions": true,
   "main": "main",
-  "name": "ns-ui-vue-demo",
+  "name": "井通靓号选",
   "version": "1.0.0"
 }

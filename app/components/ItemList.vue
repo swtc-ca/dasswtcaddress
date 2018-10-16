@@ -1,7 +1,7 @@
 <template>
   <RadListView ref="listView"
                for="item in items"
-               pullToRefresh="true"
+               :pullToRefresh="isSelecting ? true : false"
                itemReorder="true"
                swipeActions="true"
                @itemTap="onItemTap"
@@ -9,24 +9,24 @@
                @itemReordered="onItemReordered"
                @itemSwipeProgressStarted="onSwipeStarted">
     <v-template>
-      <GridLayout columns="50, *" rows="*" class="item">
-        <Image :src="item.image" col="0" class="thumbnail" />
+      <GridLayout columns="10,*" rows="*" class="item" backgroundColor="White">
+        <Label text="" col="0"></Label>
         <StackLayout col="1">
-          <label :text="item.name" class="h2" col="1"/>
-          <label :text="item.description" class="p" col="1"/>
+          <label :text="item.address" class="h3" col="1"/>
+          <label :text="item.secret" class="h4" col="1"/>
         </StackLayout>
       </GridLayout>
     </v-template>
 
     <v-template name="itemswipe">
       <GridLayout columns="auto, *, auto" backgroundColor="White">
-        <StackLayout id="mark-view" col="0" class="swipe-item left"
+        <StackLayout id="select-view" col="0" class="swipe-item left"
                      orientation="horizontal" @tap="onLeftSwipeClick">
-          <Label text="mark" verticalAlignment="center" horizontalAlignment="center"/>
+          <Label :text="isSelecting ? '收纳' : '持有'" verticalAlignment="center" horizontalAlignment="center"/>
         </StackLayout>
         <StackLayout id="delete-view" col="2" class="swipe-item right"
                      orientation="horizontal" @tap="onRightSwipeClick">
-          <Label text="delete" verticalAlignment="center" horizontalAlignment="center" />
+          <Label :text="isSelecting ? '流放' : '驱逐'" verticalAlignment="center" horizontalAlignment="center" />
         </StackLayout>
       </GridLayout>
     </v-template>
@@ -41,13 +41,29 @@ export default {
       type: Array,
       default: [],
     },
+    isSelecting: {
+      type: Boolean,
+      default: true
+    }
+  },
+  data () {
+    selecting: false
+  },
+  watch: {
+    isSelecting: function(truefalse) {
+      if (truefalse !== this.selecting) {
+        console.log('view changed')
+        console.log(this.items)
+        this.selecting = truefalse
+        this.refresh()
+      }
+    } 
   },
   methods: {
     onItemTap (event) {
       this.$emit('itemTap', event)
     },
     onPullToRefreshInitiated ({ object }) {
-      console.log('Pulling...')
       this.$emit('pulling', object)
     },
     onItemReordered({ index, data, object }) {
@@ -57,7 +73,7 @@ export default {
       console.log(`Swipe started`)
       const swipeLimits = data.swipeLimits
       const swipeView = object
-      const leftItem = swipeView.getViewById('mark-view')
+      const leftItem = swipeView.getViewById('select-view')
       const rightItem = swipeView.getViewById('delete-view')
       swipeLimits.left = leftItem.getMeasuredWidth()
       swipeLimits.right = rightItem.getMeasuredWidth()
@@ -65,7 +81,7 @@ export default {
     },
     onLeftSwipeClick ({ object }) {
       console.log('left action tapped')
-      this.$emit('itemMarked', object.bindingContext)
+      this.$emit('itemSelected', object.bindingContext)
       this.$refs.listView.notifySwipeToExecuteFinished()
     },
     onRightSwipeClick ({ object }) {
@@ -78,6 +94,9 @@ export default {
       this.$refs.listView.refresh()
     }
   },
+  created () {
+    this.selecting = this.isSelecting
+  }
 }
 </script>
 

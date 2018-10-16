@@ -1,11 +1,21 @@
 import Vue from 'nativescript-vue'
-import VueDevtools from 'nativescript-vue-devtools'
+import BackendService from './services'
+const backendService = new BackendService()
+//import VueDevtools from 'nativescript-vue-devtools'
 import RadListView from 'nativescript-ui-listview/vue'
+
+// application lifecycle
+const application = require("tns-core-modules/application");
+application.on(application.uncaughtErrorEvent, (args) => {
+  console.log(args)
+})
+// test application lifecycle
+
 
 // TODO: Change to Vue.use(RadSideDrawer) when next version was released
 import RadSideDrawer from 'nativescript-ui-sidedrawer/vue'
 
-Vue.use(VueDevtools)
+//Vue.use(VueDevtools)
 Vue.use(RadListView)
 
 import * as comps from './components'
