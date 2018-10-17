@@ -24,7 +24,7 @@
           <Label text="SWTC基金会" class="sideLabel"></Label>
           <Label text="井通公链" class="sideLabel"></Label>
           <Label text="CA生态节点" class="sideLabel"></Label>
-          <Label text="版本: 1.0.0" class="sideLabel"></Label>
+          <Label text="版本: 1.0.1" class="sideLabel"></Label>
         </StackLayout>
         <StackLayout ~mainContent class="page-content">
           <item-list
