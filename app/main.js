@@ -1,6 +1,4 @@
 import Vue from 'nativescript-vue'
-import BackendService from './services'
-const backendService = new BackendService()
 //import VueDevtools from 'nativescript-vue-devtools'
 import RadListView from 'nativescript-ui-listview/vue'
 

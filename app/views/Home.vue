@@ -88,8 +88,8 @@ export default {
     },
     onSelect () {
       this.isSelecting = true
-      this.itemList.splice(0, this.itemList.length)
-      for (let i = 0; i < 10 + Math.ceil(Math.random() * 10); i++) {
+      this.itemList.reverse()
+      for (let i = this.itemList.length; i < 10 + Math.ceil(Math.random() * 10); i++) {
         this.itemList.push(backendService.newWallet())
       }
       this.$refs.drawer.nativeView.closeDrawer()

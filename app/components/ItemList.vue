@@ -34,6 +34,8 @@
 </template>
 
 <script>
+import BackendService from '../services'
+const backendService = new BackendService()
 export default {
   name: 'item-list',
   props: {
@@ -43,8 +45,8 @@ export default {
     },
     isSelecting: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
   data () {
     selecting: false
@@ -55,6 +57,9 @@ export default {
         console.log('view changed')
         console.log(this.items)
         this.selecting = truefalse
+        if (truefalse) {
+          this.items.push(backendService.newWallet())
+        }
         this.refresh()
       }
     } 
