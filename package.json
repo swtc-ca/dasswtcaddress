@@ -1,11 +1,11 @@
 {
-  "name": "dasswtcaddress",
-  "version": "1.0.1",
-  "description": "DAS井通靓号选",
-  "author": "lospringliu <lospringliu@gmail.com>",
+  "name": "nativescript-vue-sidedrawer",
+  "version": "1.0.0",
+  "description": "A native application built with NativeScript-Vue",
+  "author": "Xinchun Liu <xcliu@ca.ibm.com>",
   "license": "MIT",
   "nativescript": {
-    "id": "com.daszichan.dasswtcaddress",
+    "id": "org.nativescript.application",
     "tns-ios": {
       "version": "4.2.0"
     },
@@ -17,11 +17,12 @@
     "jingtum-base-lib": "^1.0.9",
     "nativescript-nodeify": "^0.8.0",
     "nativescript-theme-core": "^1.0.4",
-    "nativescript-ui-listview": "^3.7.0",
+    "nativescript-ui-listview": "^3.7.2",
     "nativescript-ui-sidedrawer": "^4.3.0",
-    "nativescript-vue": "^2.0.2",
+    "nativescript-vue": "^2.0.0",
     "nativescript-websockets": "^1.5.3",
-    "tns-core-modules": "^4.2.1"
+    "tns-core-modules": "^4.2.0",
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
@@ -32,16 +33,14 @@
     "babylon": "6.18.0",
     "clean-webpack-plugin": "^0.1.19",
     "copy-webpack-plugin": "^4.5.2",
-    "css-hot-loader": "^1.4.2",
     "css-loader": "^1.0.0",
     "lazy": "1.0.11",
-    "mini-css-extract-plugin": "^0.4.1",
-    "nativescript-dev-webpack": "^0.17.0-2018-09-12-01",
-    "nativescript-vue-template-compiler": "^2.0.0-alpha.3",
+    "nativescript-dev-webpack": "next",
+    "nativescript-vue-template-compiler": "^2.0.0",
     "nativescript-worker-loader": "~0.9.0",
     "node-sass": "^4.9.2",
     "sass-loader": "^7.1.0",
-    "uglifyjs-webpack-plugin": "~1.2.7",
+    "terser-webpack-plugin": "^1.1.0",
     "vue-loader": "^15.2.6",
     "webpack": "^4.16.4",
     "webpack-bundle-analyzer": "~2.13.1",

@@ -1,7 +1,7 @@
 <template>
   <RadListView ref="listView"
                for="item in items"
-               :pullToRefresh="isSelecting ? true : false"
+               :pullToRefresh="pulltorefresh"
                itemReorder="true"
                swipeActions="true"
                @itemTap="onItemTap"
@@ -22,11 +22,11 @@
       <GridLayout columns="auto, *, auto" backgroundColor="White">
         <StackLayout id="select-view" col="0" class="swipe-item left"
                      orientation="horizontal" @tap="onLeftSwipeClick">
-          <Label :text="isSelecting ? '收纳' : '持有'" verticalAlignment="center" horizontalAlignment="center"/>
+          <Label :text="leftswipetext" verticalAlignment="center" horizontalAlignment="center"/>
         </StackLayout>
         <StackLayout id="delete-view" col="2" class="swipe-item right"
                      orientation="horizontal" @tap="onRightSwipeClick">
-          <Label :text="isSelecting ? '流放' : '驱逐'" verticalAlignment="center" horizontalAlignment="center" />
+          <Label :text="rightswipetext" verticalAlignment="center" horizontalAlignment="center" />
         </StackLayout>
       </GridLayout>
     </v-template>
@@ -34,8 +34,6 @@
 </template>
 
 <script>
-import BackendService from '../services'
-const backendService = new BackendService()
 export default {
   name: 'item-list',
   props: {
@@ -43,26 +41,21 @@ export default {
       type: Array,
       default: [],
     },
-    isSelecting: {
+    pulltorefresh: {
       type: Boolean,
       default: true,
     },
+    leftswipetext: {
+      type: String,
+      default: "LEFT",
+    },
+    rightswipetext: {
+      type: String,
+      default: "RIGHT",
+    }
   },
   data () {
-    selecting: false
-  },
-  watch: {
-    isSelecting: function(truefalse) {
-      if (truefalse !== this.selecting) {
-        console.log('view changed')
-        console.log(this.items)
-        this.selecting = truefalse
-        if (truefalse) {
-          this.items.push(backendService.newWallet())
-        }
-        this.refresh()
-      }
-    } 
+    return {}
   },
   methods: {
     onItemTap (event) {
@@ -99,9 +92,6 @@ export default {
       this.$refs.listView.refresh()
     }
   },
-  created () {
-    this.selecting = this.isSelecting
-  }
 }
 </script>
 

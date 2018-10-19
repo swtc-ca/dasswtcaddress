@@ -2,8 +2,7 @@
   "android": {
     "v8Flags": "--expose_gc"
   },
-  "discardUncaughtJsExceptions": true,
   "main": "main",
-  "name": "井通靓号选",
+  "name": "nativescript-vue-sidedrawer",
   "version": "1.0.0"
 }

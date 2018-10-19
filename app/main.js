@@ -1,38 +1,24 @@
 import Vue from 'nativescript-vue'
-//import VueDevtools from 'nativescript-vue-devtools'
 import RadListView from 'nativescript-ui-listview/vue'
-
-// application lifecycle
-const application = require("tns-core-modules/application");
-application.on(application.uncaughtErrorEvent, (args) => {
-  console.log(args)
-})
-// test application lifecycle
-
-
-// TODO: Change to Vue.use(RadSideDrawer) when next version was released
-import RadSideDrawer from 'nativescript-ui-sidedrawer/vue'
-
-//Vue.use(VueDevtools)
-Vue.use(RadListView)
-
-import * as comps from './components'
-import * as views from './views'
+import routes from '~/router'
+import store from '~/store'
+import sideDrawer from '~/components/sideDrawer'
+import drawerContent from '~/components/drawerContent'
 
 import './styles.scss'
 
-const appComponents = [
-  comps.ItemList,
-]
-
-// Bind own components
-for (let c of appComponents) {
-  Vue.component(c.name, c)
-}
-
+Vue.use(RadListView)
 // Prints Vue logs when --env.production is *NOT* set while building
 Vue.config.silent = (TNS_ENV === 'production')
 
+Vue.registerElement('RadSideDrawer', () => require('nativescript-ui-sidedrawer').RadSideDrawer)
+Vue.prototype.$routes = routes
 new Vue({
-  render: h => h('frame',[h(views.Home)]),
+  store,
+  render (h){
+    return h(sideDrawer, [
+      h(drawerContent, {slot: "drawerContent"}),
+      h(routes.MineAddress, {slot: "mainContent"})
+    ])
+  } 
 }).$start()
