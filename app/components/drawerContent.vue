@@ -12,12 +12,13 @@
         :key="i"
       />
       <Button class="drawer-close-button" @tap="closeDrawer()">关闭</Button>
-      <Label text="关于" class="sideLabel sideLightGrayLabel"></Label>
+      <Label text="关于" class="drawer-item sideLightGrayLabel"></Label>
       <Label text="DAS数字资产" class="drawer-item"></Label>
       <Label text="SWTC基金会" class="drawer-item"></Label>
       <Label text="井通公链" class="drawer-item"></Label>
       <Label text="CA生态节点" class="drawer-item"></Label>
-      <Label text="版本: 1.0.1" class="drawer-item"></Label>
+      <Label text="版本" class="drawer-item sideLightGrayLabel"></Label>
+      <Label text="v1.1.0" class="drawer-item"></Label>
 
     </StackLayout>
   </ScrollView>

@@ -1,11 +1,11 @@
 {
-  "name": "nativescript-vue-sidedrawer",
-  "version": "1.0.0",
-  "description": "A native application built with NativeScript-Vue",
-  "author": "Xinchun Liu <xcliu@ca.ibm.com>",
+  "name": "dasswtcaddress",
+  "version": "1.1.0",
+  "description": "DAS井通靓号选",
+  "author": "lospringliu <lospringliu@gmail.com>",
   "license": "MIT",
   "nativescript": {
-    "id": "org.nativescript.application",
+    "id": "com.daszichan.dasswtcaddress",
     "tns-ios": {
       "version": "4.2.0"
     },

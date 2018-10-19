@@ -43,10 +43,10 @@ export default {
     }
   },
   computed: {
-    ...mapState(['wallets'])
+    ...mapGetters({wallets: 'getSwtcWallets'})
   },
   methods: {
-    ...mapMutations(['removeWallet', 'saveWallets']),
+    ...mapMutations({removeWallet: 'removeSwtcWallet', saveWallets: 'saveSwtcWallets'}),
     onWatchRefresh() {
       console.log("received watchrefersh")
     },
@@ -66,20 +66,10 @@ export default {
     }
   },
   created() {
-    if ( TNS_ENV !== 'production' ) {
-      console.log("wallets")
-      console.log(this.wallets)
-    }
   },
   mounted() {
-    if ( TNS_ENV !== 'production' ) {
-      console.log("destroyed")
-    }
   },
   destroyed () {
-    if ( TNS_ENV !== 'production' ) {
-      console.log("destroyed")
-    }
   }
 };
 </script>

@@ -43,10 +43,9 @@ export default {
     }
   },
   computed: {
-    ...mapState(['wallets'])
   },
   methods: {
-    ...mapMutations(['addWallet', 'saveWallets']),
+    ...mapMutations({addWallet: 'addSwtcWallet', saveWallets: 'saveSwtcWallets'}),
     onWatchRefresh() {
       console.log("received watchrefersh")
     },
@@ -78,8 +77,6 @@ export default {
     if ( this.$store.debug ) {
       console.log("itemlist")
       console.log(this.itemList)
-      console.log("wallets")
-      console.log(this.wallets)
     }
   },
   mounted() {
