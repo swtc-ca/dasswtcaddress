@@ -5,7 +5,7 @@
       backgroundColor="#53ba82"
       class="action-bar"
       title="选择井通靓号">
-      <ActionItem icon="res://ic_menu"
+      <ActionItem icon="res://ic_menu" ios.position="right"
                   @tap="switchDrawer()"/>
     </ActionBar>
 
