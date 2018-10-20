@@ -54,7 +54,9 @@ export default {
     },
     onPulling (listview) {
       setTimeout(() => {
-        this.itemList.unshift(backendService.newWallet())
+        for (let i=0; i < 10; i++){
+          this.itemList.unshift(backendService.newWallet())
+        }
         listview.notifyPullToRefreshFinished()
         listview.refresh()
       })

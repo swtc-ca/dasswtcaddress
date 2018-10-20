@@ -2,7 +2,7 @@ export default {
     data () {
       return {
         // we'll use this to enable gestures on our sideDrawer.
-        gesturesEnabled: false
+        gesturesEnabled: true
       }
     },
     computed: {

@@ -11,7 +11,6 @@
         :text="page.name"
         :key="i"
       />
-      <Button class="drawer-close-button" @tap="closeDrawer()">关闭</Button>
       <Label text="关于" class="drawer-item sideLightGrayLabel"></Label>
       <Label text="DAS数字资产" class="drawer-item"></Label>
       <Label text="SWTC基金会" class="drawer-item"></Label>
@@ -34,6 +33,7 @@ export default {
       pages: [
         { name: '我的靓号', component: this.$routes.MineAddress, navigateoption: {clearHistory: true}, },
         { name: '挑选靓号', component: this.$routes.SelectAddress, navigateoption: { clearHistory: true }, },
+        { name: '浏览器', component: this.$routes.Explorer, navigateoption: { clearHistory: true }, },
       ]
     }
   },

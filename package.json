@@ -14,7 +14,8 @@
     }
   },
   "dependencies": {
-    "jingtum-base-lib": "^1.0.9",
+    "jingtum-lib": "^1.4.2",
+    "moment": "^2.22.2",
     "nativescript-nodeify": "^0.8.0",
     "nativescript-theme-core": "^1.0.4",
     "nativescript-ui-listview": "^3.7.2",

@@ -43,7 +43,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({wallets: 'getSwtcWallets'})
+    ...mapGetters({wallets: 'swtcWallets'})
   },
   methods: {
     ...mapMutations({removeWallet: 'removeSwtcWallet', saveWallets: 'saveSwtcWallets'}),

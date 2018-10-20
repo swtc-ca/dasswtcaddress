@@ -13,6 +13,19 @@ Vue.config.silent = (TNS_ENV === 'production')
 
 Vue.registerElement('RadSideDrawer', () => require('nativescript-ui-sidedrawer').RadSideDrawer)
 Vue.prototype.$routes = routes
+
+const SWTCSERVERS = [{ server: "wss://c04.jingtum.com:5020", display: "井通节点04"}, {server: "ws://swtc.daszichan.com:5020", display: "CA生态节点" }]
+if (store.getters.swtcServers.length === 0) {
+  console.log("add servers")
+  SWTCSERVERS.forEach( server => store.commit('addSwtcServer', server))
+  store.commit('saveSwtcServers')
+} else {
+  console.log("servers were set")
+}
+var swtcServer =  store.getters.swtcServers[Math.floor(Math.random() * store.getters.swtcServers.length)]
+store.commit('setSwtcServer', swtcServer)
+store.commit('setSwtcRemote')
+
 new Vue({
   store,
   render (h){

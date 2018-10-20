@@ -9,12 +9,10 @@
                @itemReordered="onItemReordered"
                @itemSwipeProgressStarted="onSwipeStarted">
     <v-template>
-      <GridLayout columns="10,*" rows="*" class="item" backgroundColor="White">
-        <Label text="" col="0"></Label>
-        <StackLayout col="1">
-          <label :text="item.address" class="h3" col="1"/>
-          <label v-if="!pulltorefresh" :text="item.secret" class="h4" col="1"/>
-        </StackLayout>
+      <GridLayout columns="60, 40, *" rows="*" class="item" backgroundColor="White">
+        <Label :text="item.ledger_index" class="h4" col="0" row="0" />
+        <label :text="item.txn_count" class="h4" col="1" row="0"/>
+        <label :text="item.ledger_hash" class="h4" col="2" row="0"/>
       </GridLayout>
     </v-template>
 
