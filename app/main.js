@@ -24,7 +24,6 @@ if (store.getters.swtcServers.length === 0) {
 }
 var swtcServer =  store.getters.swtcServers[Math.floor(Math.random() * store.getters.swtcServers.length)]
 store.commit('setSwtcServer', swtcServer)
-store.commit('setSwtcRemote')
 
 new Vue({
   store,

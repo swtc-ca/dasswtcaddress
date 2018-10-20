@@ -10,7 +10,7 @@
     </ActionBar>
 
     <StackLayout ~mainContent>
-      <GridLayout columns="60, 40, *" rows="*" class="item" height="40" backgroundColor="White">
+      <GridLayout columns="80, 60, *" rows="*" class="item" height="60" backgroundColor="White">
         <Label text="账本高度" class="h4" col="0" row="0" />
         <label text="交易数" class="h4" col="1" row="0"/>
         <label text="账本哈希" class="h4" col="2" row="0"/>
@@ -73,18 +73,23 @@ export default {
   created() {
     console.log("created")
     console.log("create local remote")
-    this.remote = backendService.newRemote(this.swtcServer)
+    console.log(this.server.server)
+    this.remote = backendService.newRemote(this.server)
+    console.log(this.remote._url)
   },
   mounted() {
     console.log("mounted")
     console.log("connect local remote")
+    console.log(this.server)
     this.remote.connect((error, result) => {
       if (error) {
+        console.log("connect error")
         console.log(error)
         this.appendMsg(error)
       } else {
-        console.log(error)
-        this.appendMsg(error)
+        console.log("connected")
+        console.log(result)
+        this.appendMsg(result)
         // connected to the remote now, install ledger monitoring
         console.log("connected local remote")
         callback_on_ledger = msg => { console.log(msg); this.addSwtcLedger(msg); this.appendMsg(msg) }

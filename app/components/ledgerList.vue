@@ -9,7 +9,7 @@
                @itemReordered="onItemReordered"
                @itemSwipeProgressStarted="onSwipeStarted">
     <v-template>
-      <GridLayout columns="60, 40, *" rows="*" class="item" backgroundColor="White">
+      <GridLayout columns="80, 60, *" rows="*" class="item" backgroundColor="White">
         <Label :text="item.ledger_index" class="h4" col="0" row="0" />
         <label :text="item.txn_count" class="h4" col="1" row="0"/>
         <label :text="item.ledger_hash" class="h4" col="2" row="0"/>
