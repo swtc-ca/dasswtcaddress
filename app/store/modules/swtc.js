@@ -4,8 +4,8 @@ const state = {
     swtcWallets: JSON.parse(applicationSettings.getString('SWTCWALLETS') || '[]'),
     swtcServers: JSON.parse(applicationSettings.getString('SWTCSERVERS') || '[]'),
     swtcLedgers: [],
-    swtcWallet: {},
-    swtcServer: {},
+    swtcWallet: JSON.parse(applicationSettings.getString('SWTCWALLET') || '{}'),
+    swtcServer: JSON.parse(applicationSettings.getString('SWTCSERVER') || '{}'),
     swtcSequence: 0,
     swtcBalance: 0,
     swtcPrice: 0,
@@ -29,9 +29,11 @@ const mutations = {
     setSwtcWallet: (state, v) => state.swtcWallet = Object.assign({}, {address: v.address, secret: v.secret}),
     addSwtcServer: (state, v) => state.swtcServers.unshift(v),
     removeSwtcServer: (state, v) => state.swtcServers.splice(state.swtcServers.indexOf(v),1),
+    setSwtcServer: (state, v) => state.swtcServer = Object.assign({}, {server: v.server, display: v.display}),
     saveSwtcWallets: (state) => applicationSettings.setString('SWTCWALLETS', JSON.stringify(state.swtcWallets)),
     saveSwtcServers: (state) => applicationSettings.setString('SWTCSERVERS', JSON.stringify(state.swtcServers)),
-    setSwtcServer: (state, v) => state.swtcServer = v,
+    saveSwtcWallet: (state) => applicationSettings.setString('SWTCWALLET', JSON.stringify(state.swtcWallet)),
+    saveSwtcServer: (state) => applicationSettings.setString('SWTCSERVER', JSON.stringify(state.swtcServer)),
 }
 const actions = {
 }

@@ -31,7 +31,7 @@
 const dialogs = require('tns-core-modules/ui/dialogs')
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 import * as platformModule from "tns-core-modules/platform";
-import JingtumService from '@/services';
+import JingtumService from './../services';
 const jingtumService = new JingtumService();
 const feedbackplugin = require('nativescript-feedback')
 var feedback = new feedbackplugin.Feedback()
@@ -57,16 +57,21 @@ export default {
   },
   methods: {
     ...mapMutations([
-      "appendMsg", "setSwtcWallet"
+      "appendMsg", "setSwtcWallet", "saveSwtcWallet", "setSwtcServer", "saveSwtcServer"
     ]),
     ...mapActions([]),
     toClipboard(content){
       clipboard.setText(content).then(() => { this.appendMsg(`${content}已拷贝到粘贴板`); this.showLastLog()});
     },
     showLastLog() {
+      let lastMessage = this.msgs[0]
+      let message = lastMessage.msg
+      if (typeof(lastMessage.msg) === typeof({})) {
+        message = JSON.stringify(lastMessage.msg, '', 2)
+      }
       feedback.show({
         title: "输出",
-        message: this.msgs[0],
+        message: message,
         duration: 2000,
         onTap: function() { feedback.hide(); }
       })
@@ -74,17 +79,18 @@ export default {
     onWalletSelected() {
       console.log("wallet seclected");
       this.setSwtcWallet(this.wallets[this.walletIndex])
+      this.saveSwtcWallet()
       console.log(this.wallet.address)
-      console.log(this.wallet)
-      //this.showLastLog()
+      this.appendMsg(this.wallet)
+      this.showLastLog()
     },
   },
   created() { 
     console.log("jingtum app created")
+    this.walletIndex = this.wallets.indexOf(this.wallets.filter(w => w.address === this.wallet.address)[0])
   },
   mounted() {
     console.log("jingtum app mounted")
-    this.walletIndex = this.wallets.indexOf(this.wallets.filter(w => w.address === this.wallet.address)[0])
     console.log(this.wallet.address)
   }
 };

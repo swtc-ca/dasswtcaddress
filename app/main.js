@@ -14,6 +14,12 @@ Vue.config.silent = (TNS_ENV === 'production')
 Vue.registerElement('RadSideDrawer', () => require('nativescript-ui-sidedrawer').RadSideDrawer)
 Vue.prototype.$routes = routes
 
+if (!store.getters.swtcWallet.hasOwnProperty('address')) {
+  if (store.getters.swtcWallets.length > 0) {
+    store.commit('setSwtcWallet', store.getters.swtcWallets[0])
+    store.commit('saveSwtcWallet')
+  }
+}
 const SWTCSERVERS = [{ server: "wss://c04.jingtum.com:5020", display: "井通节点04"}, {server: "ws://swtc.daszichan.com:5020", display: "CA生态节点" }]
 if (store.getters.swtcServers.length === 0) {
   console.log("add servers")
@@ -23,7 +29,10 @@ if (store.getters.swtcServers.length === 0) {
   console.log("servers were set")
 }
 var swtcServer =  store.getters.swtcServers[Math.floor(Math.random() * store.getters.swtcServers.length)]
-store.commit('setSwtcServer', swtcServer)
+if (!store.getters.swtcServer.hasOwnProperty('server')) {
+  store.commit('setSwtcServer', swtcServer)
+  store.commit('saveSwtcServer')
+}
 
 new Vue({
   store,
