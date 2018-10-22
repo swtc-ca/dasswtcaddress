@@ -16,7 +16,7 @@
       </StackLayout>
       <StackLayout :visibility="wallet.hasOwnProperty('address') ? 'visible' : 'collapse'">
         <GridLayout ref="walletRef" columns="80,*,2*,90" rows="36">
-          <Label col="0" text="井通地址" />
+          <Label col="0" text="井通" />
           <Label col="1" :text="sequence ? '序号' + sequence : ''" />
           <Label col="2" :text="balance ? '余额' + balance : ''" />
           <Label col="3" :text="!!price ? '价格' + price : ''" />
@@ -36,6 +36,7 @@ const jingtumService = new JingtumService();
 const feedbackplugin = require('nativescript-feedback')
 var feedback = new feedbackplugin.Feedback()
 var clipboard = require("nativescript-clipboard")
+var toasts = require('nativescript-toasts')
 import sideDrawer from '~/mixins/sideDrawer'
 export default {
   mixins: [ sideDrawer ],
@@ -61,7 +62,7 @@ export default {
     ]),
     ...mapActions([]),
     toClipboard(content){
-      clipboard.setText(content).then(() => { this.appendMsg(`${content}已拷贝到粘贴板`); this.showLastLog()});
+      clipboard.setText(content).then(() => { this.appendMsg(`${content}已拷贝到粘贴板`); this.showLastLogToasts()});
     },
     showLastLog() {
       let lastMessage = this.msgs[0]
@@ -74,6 +75,17 @@ export default {
         message: message,
         duration: 2000,
         onTap: function() { feedback.hide(); }
+      })
+    },
+    showLastLogToasts() {
+      let lastMessage = this.msgs[0]
+      let message = lastMessage.msg
+      if (typeof(lastMessage.msg) === typeof({})) {
+        message = JSON.stringify(lastMessage.msg, '', 2)
+      }
+      toasts.show({
+        text: message,
+        duration: toasts.DURATION.LONG,
       })
     },
     onWalletSelected() {
