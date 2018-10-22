@@ -33,6 +33,7 @@ export default {
       pages: [
         { name: '我的靓号', component: this.$routes.MineAddress, navigateoption: {clearHistory: true}, },
         { name: '挑选靓号', component: this.$routes.SelectAddress, navigateoption: { clearHistory: true }, },
+        { name: '井通lib', component: this.$routes.JingtumLib, navigateoption: { clearHistory: true }, },
         { name: '浏览器', component: this.$routes.Explorer, navigateoption: { clearHistory: true }, },
       ]
     }

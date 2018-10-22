@@ -29,7 +29,7 @@
 <script>
 import BackendService from './../services'
 var backendService = new BackendService()
-import ItemList from './../components/itemList'
+import ItemList from './../components/addressList'
 
 import sideDrawer from '~/mixins/sideDrawer'
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";

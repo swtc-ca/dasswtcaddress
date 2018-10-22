@@ -1,4 +1,3 @@
-const applicationSettings = require("tns-core-modules/application-settings")
 require('nativescript-nodeify')
 const JingtumLib = require('jingtum-lib')
 const Wallet = JingtumLib.Wallet
