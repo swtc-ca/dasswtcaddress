@@ -14,7 +14,7 @@ Vue.config.silent = (TNS_ENV === 'production')
 Vue.registerElement('RadSideDrawer', () => require('nativescript-ui-sidedrawer').RadSideDrawer)
 Vue.prototype.$routes = routes
 
-if (!store.getters.swtcWallet.hasOwnProperty('address')) {
+if (store.getters.swtcWallet.length === 0) {
   if (store.getters.swtcWallets.length > 0) {
     store.commit('setSwtcWallet', store.getters.swtcWallets[0])
     store.commit('saveSwtcWallet')
@@ -29,7 +29,7 @@ if (store.getters.swtcServers.length === 0) {
   console.log("servers were set")
 }
 var swtcServer =  store.getters.swtcServers[Math.floor(Math.random() * store.getters.swtcServers.length)]
-if (!store.getters.swtcServer.hasOwnProperty('server')) {
+if (store.getters.swtcServer.length === 0) {
   store.commit('setSwtcServer', swtcServer)
   store.commit('saveSwtcServer')
 }
