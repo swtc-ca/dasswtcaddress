@@ -4,6 +4,8 @@ import routes from '~/router'
 import store from '~/store'
 import sideDrawer from '~/components/sideDrawer'
 import drawerContent from '~/components/drawerContent'
+import JingtumBaseLibService from '~/services/JingtumBaseLibService'
+const jingtumBaseLibService = new JingtumBaseLibService()
 
 import './styles.scss'
 
@@ -18,20 +20,18 @@ if (store.getters.swtcWallet.length === 0) {
   if (store.getters.swtcWallets.length > 0) {
     store.commit('setSwtcWallet', store.getters.swtcWallets[0])
     store.commit('saveSwtcWallet')
+  } else {
+    store.commit('setSwtcWallet', jingtumBaseLibService.newWallet())
+    store.commit('saveSwtcWallet')
   }
 }
-const SWTCSERVERS = [{ server: "wss://c04.jingtum.com:5020", display: "井通节点04"}, {server: "ws://swtc.daszichan.com:5020", display: "CA生态节点" }]
+const SWTCSERVERS = [{ server: "wss://c04.jingtum.com:5020", display: "井通节点04"}, { server: "wss://c05.jingtum.com:5020", display: "井通节点05"}, {server: "ws://swtc.daszichan.com:5020", display: "CA生态节点" }]
 if (store.getters.swtcServers.length === 0) {
   console.log("add servers")
-  SWTCSERVERS.forEach( server => store.commit('addSwtcServer', server))
+  SWTCSERVERS.reverse().forEach( server => store.commit('addSwtcServer', server))
   store.commit('saveSwtcServers')
 } else {
   console.log("servers were set")
-}
-var swtcServer =  store.getters.swtcServers[Math.floor(Math.random() * store.getters.swtcServers.length)]
-if (store.getters.swtcServer.length === 0) {
-  store.commit('setSwtcServer', swtcServer)
-  store.commit('saveSwtcServer')
 }
 
 new Vue({

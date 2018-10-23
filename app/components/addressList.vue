@@ -12,8 +12,8 @@
       <GridLayout columns="10,*" rows="*" class="item" backgroundColor="White">
         <Label text="" col="0"></Label>
         <StackLayout col="1">
-          <label :text="item.address" class="h3" col="1"/>
-          <label v-if="!pulltorefresh" :text="item.secret" class="h4" col="1"/>
+          <Label :text="item.address" class="h3" col="1"/>
+          <Label v-if="!pulltorefresh" :text="item.secret" class="h4" col="1"/>
         </StackLayout>
       </GridLayout>
     </v-template>

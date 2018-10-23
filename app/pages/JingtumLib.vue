@@ -10,55 +10,55 @@
     </ActionBar>
 
     <StackLayout ~mainContent>
-      <StackLayout :visibility="!!wallet ? 'collapse' : 'visible'">
+      <StackLayout :visibility="!wallet || wallet.address === 'undefined' ? 'visible' : 'collapse'">
           <ListPicker :items="wallets.map(w => w.address)" v-model="walletIndex" />
           <Button text="选择井通地址" @tap="onWalletSelected" class="btn btn-primary btn-active"/>
       </StackLayout>
-      <StackLayout :visibility="!!wallet ? 'visible' : 'collapse'">
+      <StackLayout :visibility="!server || server.server === 'undefined' ? 'visible' : 'collapse'">
+          <ListPicker :items="servers.map(s => s.display)" v-model="serverIndex" />
+          <Button text="选择井通服务器" @tap="onServerSelected" class="btn btn-primary btn-active"/>
+      </StackLayout>
+      <StackLayout :visibility="wallet.address === 'undefined' ? 'collapse' : 'visible'">
         <GridLayout ref="walletRef" columns="80,*,2*,90" rows="36">
           <Label col="0" text="井通" />
           <Label col="1" :text="sequence ? '序号' + sequence : ''" />
           <Label col="2" :text="balance ? '余额' + balance : ''" />
           <Label col="3" :text="!!price ? '价格' + price : ''" />
         </GridLayout>
-        <Label :text="' 地址: ' + wallet.address" @onTap="toClipboard(wallet.address)" />
+        <Label :text="wallet.address" @onTap="toClipboard(`${wallet.address}`)" />
       </StackLayout>
-      <StackLayout :visibility="!!server ? 'collapse' : 'visible'">
-          <ListPicker :items="servers.map(s => s.display)" v-model="serverIndex" />
-          <Button text="选择井通服务器" @tap="onServerSelected" class="btn btn-primary btn-active"/>
-      </StackLayout>
-      <StackLayout :visibility="!!remote ? 'visible' : 'collapse'">
+      <StackLayout :visibility="remote === null ? 'collapse' : 'visible'">
         <GridLayout ref="remoteRef" columns="100,100,*,80" rows="40">
           <Label col="0" text="井通节点" />
           <Label col="1" :text="remoteStatus ? '已连接': ''" />
-          <button col="3" :isEnabled="!remoteConnecting" @tap="onRemoteConnection" :text="!remoteStatus ? '连接' : '断开'" style="width:80;height:40" class="btn btn-primary"/>
+          <Button col="3" :isEnabled="!remoteConnecting" @tap="onRemoteConnection" :text="!remoteStatus ? '连接' : '断开'" style="width:80;height:40" class="btn btn-primary"/>
         </GridLayout>
-        <Label :visibility="!!server ? 'visible' : 'collapse'" :text="'节点: ' + server.display "  />
+        <Label :text="server.display"  />
         <GridLayout ref="queryRef" columns="80,*,80" rows="40" :visibility="remoteStatus && !remoteConnecting ? 'visible' : 'collapse'">
-          <button col="0" row="0" @tap="onQueryLedger" text="查账本" style="width:80;" class="btn btn-primary"/>
+          <Button col="0" row="0" @tap="onQueryLedger" text="查账本" style="width:80;" class="btn btn-primary"/>
           <TextField col="1" row="0" hint="帐本高度/哈希 交易哈希" v-model="qrLedgerTransaction" autocorrect="false"/>
-          <button col="2" row="0" @tap="onQueryTransaction" text="查交易" style="width:80;" class="btn btn-primary"/>
+          <Button col="2" row="0" @tap="onQueryTransaction" text="查交易" style="width:80;" class="btn btn-primary"/>
         </GridLayout>
         <GridLayout ref="queryRefa" columns="80,*,*,80" rows="40" :visibility="remoteStatus && !remoteConnecting && wallet? 'visible' : 'collapse'">                     
-          <button col="0" :isEnabled="remoteStatus && !remoteConnecting" @tap="onWalletBalance" text="查余额" style="width:80" class="btn btn-primary"/>                
-          <Button col="3" :isEnabled="remoteStatus && !remoteConnecting && activated" row="1" text="查通证" @tap="onWalletTums()" class="btn btn-primary"  style="width:80;" />
+          <Button col="0" :isEnabled="remoteStatus && !remoteConnecting" @tap="onWalletBalance" text="查余额" style="width:80" class="btn btn-primary"/>                
+          <Button col="3" :isEnabled="remoteStatus && !remoteConnecting && activated" row="1" text="查通证" @tap="onWalletTums" class="btn btn-primary"  style="width:80;" />
         </GridLayout>
         <GridLayout ref="queryRefb" columns="80,*,*,80" rows="40" :visibility="remoteStatus && !remoteConnecting ? 'visible' : 'collapse'">                     
-          <Button col="0" text="查市场" :isEnabled="remoteStatus && !remoteConnecting" @tap="onOrderBook()" class="btn btn-primary"  style="width:80;" />      
-          <button col="3" :isEnabled="remoteStatus && !remoteConnecting" @tap="onRemoteInfo" text="服务器" style="width:80;" class="btn btn-primary"/>           
+          <Button col="0" text="查市场" :isEnabled="remoteStatus && !remoteConnecting" @tap="onOrderBook" class="btn btn-primary"  style="width:80;" />      
+          <Button col="3" :isEnabled="remoteStatus && !remoteConnecting" @tap="onRemoteInfo" text="服务器" style="width:80;" class="btn btn-primary"/>           
         </GridLayout>
         <GridLayout ref="paymentRef" columns="80,*,*,80" rows="40,40,40" :visibility="remoteStatus && !remoteConnecting && activated ? 'visible' : 'collapse'">  
-          <Button col="0" text="作支付" @tap="onPayment()" class="btn btn-primary"  style="width:80;" />
+          <Button col="0" row="0" text="作支付" @tap="onPayment" class="btn btn-primary"  style="width:80;" />
           <TextField col="1" row="0" v-model="payMemo" autocorrect="false"/>
           <TextField col="2" row="0" v-model="payValue" autocorrect="false"/>
-          <Button col="3" row="0" text="查记录" @tap="onWalletHistory()" class="btn btn-primary"  style="width:80;" />
-          <Button col="0" row="1" text="查关系" @tap="onWalletRelations()" class="btn btn-primary"  style="width:80;" />
+          <Button col="3" row="0" text="查记录" @tap="onWalletHistory" class="btn btn-primary"  style="width:80;" />
+          <Button col="0" row="1" text="查关系" @tap="onWalletRelations" class="btn btn-primary"  style="width:80;" />
           <TextField col="1" row="1" v-model="qrRelation" autocorrect="false"/>
-          <Button col="3" row="1" text="查挂单" @tap="onWalletOffers()" class="btn btn-primary"  style="width:80;" />
-          <Button col="0" row="2" text="挂单买" @tap="onOfferBuy()" class="btn btn-primary"  style="width:80;" />
+          <Button col="3" row="1" text="查挂单" @tap="onWalletOffers" class="btn btn-primary"  style="width:80;" />
+          <Button col="0" row="2" text="挂单买" @tap="onOfferBuy" class="btn btn-primary"  style="width:80;" />
           <TextField col="1" row="2" v-model="offerSWT" autocorrect="false"/>
           <TextField col="2" row="2" v-model="offerCNY" autocorrect="false"/>
-          <Button col="3" row="2" text="挂单卖" @tap="onOfferSell()" class="btn btn-primary"  style="width:80;" />
+          <Button col="3" row="2" text="挂单卖" @tap="onOfferSell" class="btn btn-primary"  style="width:80;" />
         </GridLayout>
         <GridLayout ref="listenRef" columns="80,*,*,80" rows="40" :visibility="remoteStatus && !remoteConnecting ? 'visible' : 'collapse'">
           <Button col="0" width="80" :text="!onLedger ? '监听账本' : '停止监听账本'" :visibility="remoteStatus && !remoteConnecting ? 'visible' : 'collapse'" @tap="onListenLedger()" class="btn btn-primary btn-active" />
@@ -88,8 +88,8 @@ export default {
   data() {
     return {
       appVersion: '1.1.0',
-      walletIndex: -1,
-      serverIndex: -1,
+      walletIndex: 0,
+      serverIndex: 0,
       remote: null,
       remoteConnecting: false,
       qrLedgerTransaction: '',
@@ -117,7 +117,7 @@ export default {
   },
   methods: {
     ...mapMutations([
-      "appendMsg", "setSwtcWallet", "saveSwtcWallet", "setSwtcServer", "saveSwtcServer", "setSwtcActivated","setSwtcPrice", "setSwtcSequence", "setSwtcBalance"
+      "appendMsg", "addSwtcWallet", "saveSwtcWallets", "setSwtcWallet", "saveSwtcWallet", "setSwtcServer", "saveSwtcServer", "setSwtcActivated","setSwtcPrice", "setSwtcSequence", "setSwtcBalance"
     ]),
     ...mapActions([]),
     callback_message (msg) {
@@ -321,6 +321,8 @@ export default {
         }
       if (this.remoteStatus) {
         jingtumLibService.disconnect(this.remote)
+        this.onLedger = false
+        this.onTransaction = false
         this.remoteConnecting = false
         this.setSwtcPrice(0)
         this.setSwtcBalance(0)
@@ -328,41 +330,65 @@ export default {
       } else {
         jingtumLibService.connect(this.remote,callbackConnect)
       }
-      this.onLedger = false
-      this.onTransaction = false
       //callbackPost()
     },
     onServerSelected() {
-      console.log("server seclected");
-      this.setSwtcServer(this.servers[this.serverIndex])
-      this.saveSwtcServer()
-      this.remote = jingtumLibService.newRemote(this.server)
-      console.log(this.server.server)
-      this.appendMsg(this.server)
+      console.log("server selected");
+      if (this.serverIndex && this.serverIndex < this.servers.length) {
+        this.setSwtcServer(this.servers[this.serverIndex])
+        this.saveSwtcServer()
+        console.log(this.server)
+        this.remote = jingtumLibService.newRemote(this.server.server)
+        console.log(this.server.server)
+        this.appendMsg(this.server)
+      } else {
+        console.log('no server selected')
+        this.appendMsg('请选择一个服务器')
+      }
       this.showLastLog()
     },
     onWalletSelected() {
-      console.log("wallet seclected");
-      this.setSwtcWallet(this.wallets[this.walletIndex])
-      this.saveSwtcWallet()
-      console.log(this.wallet.address)
-      this.appendMsg(this.wallet)
+      console.log("wallet selected");
+      if (this.walletIndex && this.walletIndex < this.wallets.length) {
+        this.setSwtcWallet(this.wallets[this.walletIndex])
+        this.saveSwtcWallet()
+        console.log(this.wallet.address)
+        this.appendMsg(this.wallet)
+      } else {
+        console.log('no wallet selected')
+        this.appendMsg('请选择一个钱包')
+      }
       this.showLastLog()
     },
   },
   created() { 
     console.log("jingtum app created")
-    this.walletIndex = this.wallets.indexOf(this.wallets.filter(w => w.address === this.wallet.address)[0])
-    this.serverIndex = this.servers.indexOf(this.servers.filter(s => s.server === this.server.server)[0])
+    if (this.wallet && this.wallet.hasOwnProperty('address')) {
+      this.walletIndex = this.wallets.indexOf(this.wallets.filter(w => w.address === this.wallet.address)[0])
+    } else {
+      let rwallet = jingtumLibService.newWallet()
+      this.addSwtcWallet(rwallet)
+      this.saveSwtcWallets()
+      this.setSwtcWallet(rwallet)
+      this.saveSwtcWallet()
+    }
+    if (this.server && this.server.hasOwnProperty('server')) {
+      this.serverIndex = this.servers.indexOf(this.servers.filter(s => s.server === this.server.server)[0])
+    } else {
+      let swtcServer =  this.servers[Math.floor(Math.random() * this.servers.length)]
+      this.setSwtcServer(swtcServer)
+      this.saveSwtcServer()
+    }
   },
   mounted() {
     console.log("jingtum app mounted")
-    console.log(this.wallet.address)
-    console.log(this.server.server)
-    if (this.server.hasOwnProperty('server')) {
+    console.log(this.wallet)
+    console.log(this.server)
+    if (this.server && this.server.hasOwnProperty('server')) {
       console.log("set jingtumlib.remote")
       this.remote = jingtumLibService.newRemote(this.server)
     }
+    console.log(this.remote)
   }
 };
 </script>

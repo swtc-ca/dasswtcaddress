@@ -12,8 +12,8 @@
     <StackLayout ~mainContent>
       <GridLayout columns="80, 60, *" rows="*" class="item" height="60" backgroundColor="White">
         <Label text="账本高度" class="h4" col="0" row="0" />
-        <label text="交易数" class="h4" col="1" row="0"/>
-        <label text="账本哈希" class="h4" col="2" row="0"/>
+        <Label text="交易数" class="h4" col="1" row="0"/>
+        <Label text="账本哈希" class="h4" col="2" row="0"/>
       </GridLayout>
       <item-list
         ref="list"

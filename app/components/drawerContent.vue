@@ -17,7 +17,7 @@
       <Label text="井通公链" class="drawer-item"></Label>
       <Label text="CA生态节点" class="drawer-item"></Label>
       <Label text="版本" class="drawer-item sideLightGrayLabel"></Label>
-      <Label text="v1.1.0" class="drawer-item"></Label>
+      <Label text="v1.2.0" class="drawer-item"></Label>
 
     </StackLayout>
   </ScrollView>
