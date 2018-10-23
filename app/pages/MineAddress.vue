@@ -27,8 +27,6 @@
 </template>
 
 <script>
-import BackendService from './../services'
-var backendService = new BackendService()
 import ItemList from './../components/addressList'
 
 import sideDrawer from '~/mixins/sideDrawer'

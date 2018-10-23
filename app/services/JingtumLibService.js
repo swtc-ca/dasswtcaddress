@@ -1,6 +1,6 @@
-require('nativescript-nodeify')
+import JingtumBaseLibService from './JingtumBaseLibService'
+require('nativescript-nodeify/nodeify')
 const JingtumLib = require('jingtum-lib')
-const Wallet = JingtumLib.Wallet
 const Remote = JingtumLib.Remote
 
 const options_swt_cny = {
@@ -20,12 +20,11 @@ var callbackErrorResult =  (err, result) => {
 }
 var callbackMessage = msg => console.log(msg)
 
-export default class BackendService {
-    constructor() {
-        console.log('backend service initialized')
-    }
-    newWallet() {
-        return Wallet.generate()
+export default class JingtumLibService extends JingtumBaseLibService {
+    constructor(v) {
+        console.log(`jingtum service ${v} initializing`)
+        super(v)
+        console.log(`jingtum service ${v} initialized`)
     }
     newRemote(server='ws://swtc.daszichan.com:5020', local_sign=true) {
         if (typeof(server) === typeof({})) {

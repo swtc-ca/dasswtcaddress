@@ -31,8 +31,8 @@
 </template>
 
 <script>
-import BackendService from './../services'
-var backendService = new BackendService()
+import JingtumLibService from './../services/JingtumLibService'
+var jingtumLibService = new JingtumLibService('explorer')
 import LedgerList from './../components/ledgerList'
 var callback_on_ledger = () => {}
 import sideDrawer from '~/mixins/sideDrawer'
@@ -74,7 +74,7 @@ export default {
     console.log("created")
     console.log("create local remote")
     console.log(this.server.server)
-    this.remote = backendService.newRemote(this.server)
+    this.remote = jingtumLibService.newRemote(this.server)
     console.log(this.remote._url)
   },
   mounted() {

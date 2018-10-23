@@ -26,8 +26,8 @@
 </template>
 
 <script>
-import BackendService from './../services'
-var backendService = new BackendService()
+import JingtumBaseLibService from './../services/JingtumBaseLibService'
+var jingtumBaseLibService = new JingtumBaseLibService('address')
 import ItemList from './../components/addressList'
 
 import sideDrawer from '~/mixins/sideDrawer'
@@ -55,7 +55,7 @@ export default {
     onPulling (listview) {
       setTimeout(() => {
         for (let i=0; i < 10; i++){
-          this.itemList.unshift(backendService.newWallet())
+          this.itemList.unshift(jingtumBaseLibService.newWallet())
         }
         listview.notifyPullToRefreshFinished()
         listview.refresh()
@@ -74,7 +74,7 @@ export default {
   },
   created() {
     for (let i = 0; i < 20; i++) {
-      this.itemList.push(backendService.newWallet())
+      this.itemList.push(jingtumBaseLibService.newWallet())
     }
     if ( this.$store.debug ) {
       console.log("itemlist")
